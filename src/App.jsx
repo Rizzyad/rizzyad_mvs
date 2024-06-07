@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import { getMovielist, searchMovie } from "./api";
+import Header from "./components/Header";
+import { Heading } from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import Movies from "./components/Movies";
+import { Movie } from "./components/Movies";
+
 import "./App.css";
 
 function App() {
@@ -20,39 +26,13 @@ function App() {
 
   return (
     <>
-      <div className="App">
-        <header className="App-header">
-          <h1>RIZZYAD MVS</h1>
-          <input
-            type="text"
-            onChange={({ target }) => search(target.value)}
-            placeholder="Cari film kesayangan..."
-            className="Movie-search"
-          />
-          <div className="Movie-container">
-            {popularMovies.length > 0 ? (
-              popularMovies.map((movie) => (
-                <div className="Movie-wrapper" key={movie.id}>
-                  <div className="Movie-title">{movie.title}</div>
-                  <img
-                    src={`${import.meta.env.VITE_REACT_APP_BASEIMGURL}${
-                      movie.poster_path
-                    }`}
-                    alt={movie.title}
-                    className="Movie-image"
-                  />
-                  <div className="Movie-date">
-                    release: {movie.release_date}
-                  </div>
-                  <div className="Movie-rate">{movie.vote_average}</div>
-                </div>
-              ))
-            ) : (
-              <h1>No data</h1>
-            )}
-          </div>
-        </header>
-      </div>
+      <Header>
+        <Heading />
+        <SearchBar search={search}/>
+        <Movies>
+          <Movie popularMovies={popularMovies}/>
+        </Movies>
+      </Header>
     </>
   );
 }
